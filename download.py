@@ -2,6 +2,7 @@ from fred.database import FredDatabase
 from fred.schema import FredSchema
 from utils.validation import validate_json
 import logging
+from time import sleep
 
 
 logger = logging.getLogger(__name__)
@@ -14,6 +15,7 @@ def main() -> None:
     
     with FredDatabase(configs['api_key']) as db:
         for sid in configs['series_ids']:
+            sleep(.5)
             db.get_data(sid)
             
 
