@@ -1,0 +1,13 @@
+{
+    "resample_period": "Q",
+    "row_threshold": 0.7,
+    "col_threshold": 0.8,
+    "interpolate_fill": [
+        "RSXFS",
+        "PCEPILFE",
+        "GDPC1"
+    ],
+    "mean_fill": [
+        "INDPRO"
+    ]
+}
