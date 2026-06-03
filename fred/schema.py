@@ -25,7 +25,3 @@ class FredSchema(BaseModel):
         pattern='^[a-f0-9]{32}$',
         description='FRED API-Key [https://fredaccount.stlouisfed.org/apikeys]'
     )]
-    series_ids: Annotated[
-        List[Annotated[str, Field(pattern='^[A-Z0-9]+$', min_length=1)]], 
-        Field(min_length=1, description='List of FRED Series-IDs')
-    ]
