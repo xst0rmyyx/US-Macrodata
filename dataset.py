@@ -53,7 +53,7 @@ def main(
     if not data:
         return
         
-    df = build_dataset(data, df_configs, dynamic=True, drop_rem=True)
+    df = build_dataset(data, df_configs, dynamic=True, drop_rem=False)
     if not df.empty:
         df.to_csv(target_path)
         
