@@ -44,17 +44,20 @@ def build_dataset(
     
     # Vertical NaN-Handling
     rownans = df.isna().sum(axis=1)
-    rowdrop = rownans.index[rownans >= len(df.columns) * configs['row_threshold']]
-    df = df.drop(rowdrop)
-    logger.info(f'Dropped {len(rowdrop)} rows')
+    rowdrop = list(rownans.index[rownans >= len(df.columns) * configs['row_threshold']])
+    if rowdrop:
+        df = df.drop(rowdrop)
+        logger.info(f'Dropped {len(rowdrop)} rows')
     
     # Horizontal NaN-Handling
     if not df.empty:
         colnans = df.isna().sum()
         col_thres_base = len(df) if dynamic else org_rows
-        coldrop = colnans.index[colnans >= col_thres_base * configs['col_threshold']]
-        df = df.drop(coldrop, axis=1)
-        logger.info(f'Columns dropped:\n{coldrop}')
+        coldrop = list(colnans.index[colnans >= col_thres_base * configs['col_threshold']])
+        if coldrop:
+            df = df.drop(coldrop, axis=1)
+            coldrop_id = [i.split('_')[0] for i in coldrop]
+            logger.info(f'Columns dropped:\n{coldrop_id}')
     else:
         logger.warning('No columns dropped – dataframe is empty')
         return pd.DataFrame()
