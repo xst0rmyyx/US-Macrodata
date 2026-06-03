@@ -45,8 +45,8 @@ if __name__ == '__main__':
     )
     series_ids = [
         "GDPC1",
-        "RSXFS",
         "PCEPILFE",
+        "RSXFS",
         "INDPRO"
     ]
     main(series_ids)
