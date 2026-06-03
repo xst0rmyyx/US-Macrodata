@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_CONFIGS = {
     'resample_period': None,
-    'row_threshold': 0.7,
-    'col_threshold': 0.8,
+    'row_threshold': 0.35,
+    'col_threshold': 0.25,
     'interpolate_fill': None,
     'mean_fill': None
 }

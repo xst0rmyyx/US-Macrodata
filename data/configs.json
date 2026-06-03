@@ -1,7 +1,7 @@
 {
     "resample_period": "Q",
-    "row_threshold": 0.7,
-    "col_threshold": 0.8,
+    "row_threshold": 0.3,
+    "col_threshold": 0.2,
     "interpolate_fill": [
         "RSXFS",
         "PCEPILFE",
