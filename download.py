@@ -7,8 +7,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def main(path: str) -> None:
-    configs = validate_json(path, FredSchema)
+def main() -> None:
+    configs = validate_json('fred/configs.json', FredSchema)
     if configs is None:
         return
     
@@ -22,5 +22,4 @@ if __name__ == '__main__':
         level=logging.ERROR,
         format='%(asctime)s – %(levelname)s – %(message)s'
     )
-    path = 'fred/configs.json'
-    main(path)
+    main()
