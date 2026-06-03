@@ -3,25 +3,20 @@ from typing import Optional, List, Literal, Annotated
 
 
 VALID_PERIODS = [
-    'D',   # Calendar day
-    'B',   # Business day
-    'W',   # Weekly
-    'M',  # Month end
-    'MS',  # Month start
-    'Q',  # Quarter end
-    'QS',  # Quarter start
-    'Y',  # Year end
-    'YS',  # Year start
-    'h',   # Hourly
-    'min', # Minutely
-    's',   # Secondly
+    'W',	# Weekly
+    'M',	# Month end
+    'MS',	# Month start
+    'Q',	# Quarter end
+    'QS',	# Quarter start
+    'Y',	# Year end
+    'YS'	# Year start
 ]
 
 
 class WranglingSchema(BaseModel):
     resample_period: Optional[Literal[tuple(VALID_PERIODS)]] = Field(
         None, 
-        description='Pandas frequency alias for resampling (e.g., "MS" for Month Start, "D" for Daily).'
+        description='Pandas frequency alias for resampling (e.g., "MS" for Month Start, "Q" for Quarter End).'
     )
     
     row_threshold: Annotated[float, Field(
