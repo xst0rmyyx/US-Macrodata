@@ -1,6 +1,9 @@
 {
-    "api_key": "",
+    "api_key": "YOUR API KEY",
     "series_ids": [
-        
+        "GDPC1",
+        "PCEPILFE",
+        "FEDFUNDS",
+        "UNRATE"
     ]
 }
