@@ -27,13 +27,13 @@ class WranglingSchema(BaseModel):
     row_threshold: Annotated[float, Field(
         ge=0.0, 
         le=1.0, 
-        description='Maximum ratio of required non-null rows. 0.0 means no missing values allowed.'
+        description='Maximum ratio of null-values in a row. 0.0 means no missing values allowed.'
     )]
     
     col_threshold: Annotated[float, Field(
         ge=0.0, 
         le=1.0, 
-        description='Maximum ratio of required non-null columns. 0.0 means no missing values allowed.'
+        description='Maximum ratio of null-values in a column. 0.0 means no missing values allowed.'
     )]
     
     interpolate_fill: Optional[List[str]] = Field(
