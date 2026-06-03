@@ -1,18 +1,3 @@
 {
-    "api_key": "YOUR API KEY",
-    "series_ids": [
-        "PAYEMS",
-        "UNRATE",
-        "ICSA",
-        "JTSJOL",
-        "CPIAUCSL",
-        "CPILFESL",
-        "PCEPI",
-        "PCEPILFE",
-        "GDPC1",
-        "RSXFS",
-        "FEDFUNDS",
-        "T10Y2Y",
-        "WALCL"
-    ]
+    "api_key": "YOUR API KEY"
 }
