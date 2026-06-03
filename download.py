@@ -5,9 +5,6 @@ import logging
 from time import sleep
 
 
-logger = logging.getLogger(__name__)
-
-
 def main() -> None:
     configs = validate_json('fred/configs.json', FredSchema)
     if configs is None:
@@ -23,5 +20,10 @@ if __name__ == '__main__':
     logging.basicConfig(
         level=logging.ERROR,
         format='%(asctime)s – %(levelname)s – %(message)s'
+    )
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s – %(levelname)s – %(message)s',
+        filename='fred/database.py'
     )
     main()
