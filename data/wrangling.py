@@ -20,7 +20,7 @@ def build_dataset(
     configs: Dict[str, Union[Optional[str], float, Optional[List[str]]]]=DEFAULT_CONFIGS,
     dynamic: bool=True,
     drop_rem: bool=False
-) -> Optional[pd.DataFrame]:
+) -> pd.DataFrame:
     
     # Data-Merging
     try:
@@ -28,7 +28,7 @@ def build_dataset(
         
     except Exception:
         logger.exception('Failed to concat input-data')
-        return 
+        return pd.DataFrame()
     
     # Datetime-Index standardizing
     if configs['resample_period'] is not None:
@@ -38,7 +38,7 @@ def build_dataset(
             
         except Exception:
             logger.exception('Failed to standardize dataframe observations')
-            return
+            return pd.DataFrame()
     
     org_rows = len(df)
     
@@ -57,7 +57,7 @@ def build_dataset(
         logger.info(f'Columns dropped:\n{coldrop}')
     else:
         logger.warning('No columns dropped – dataframe is empty')
-        return
+        return pd.DataFrame()
     
     df.columns = [i.split('_')[0] for i in df.columns]
     # NaN-Filling
@@ -78,6 +78,6 @@ def build_dataset(
         logger.info(f'Dropped {org_rows - len(df)} remaining rows')
         if df.empty:
             logger.warning('Dataframe is empty after dropping remaining rows containing NaNs')
-            return
+            return pd.DataFrame()
     
     return df
