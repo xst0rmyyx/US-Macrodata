@@ -8,7 +8,18 @@ import logging
 from time import sleep
 
 
-def main(series_ids: List[str], target_path: str='dataset.csv') -> None:
+logger = logging.getLogger(__name__)
+
+
+def main(series_ids: List[str], frequency: str='q', target_path: str='dataset.csv') -> None:
+    if not isinstance(series_ids, list):
+        logger.error('Series-IDs must be in a list')
+        return
+    
+    if target_path.split('.')[1] != 'csv':
+        logger.error(f'Invalid target-path type. Must be csv')
+        return
+        
     db_configs = validate_json('fred/configs.json', FredSchema)
     df_configs = validate_json('data/configs.json', WranglingSchema)
     
@@ -21,7 +32,7 @@ def main(series_ids: List[str], target_path: str='dataset.csv') -> None:
     with FredDatabase(db_configs['api_key']) as db:
         for sid in series_ids:
             sleep(.5)
-            sample = db.get_data(sid, frequency='q', autosave=True)
+            sample = db.get_data(sid, frequency, autosave=True)
             if not sample.empty:
                 data.append(sample)
     
