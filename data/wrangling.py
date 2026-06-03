@@ -77,8 +77,10 @@ def build_dataset(
             logger.info(f'Filled {mfill_cols} with their mean')
             
     if drop_rem:
+        before_remdrop = len(df)
         df = df.dropna()
-        logger.info(f'Dropped {org_rows - len(df)} remaining rows')
+        remdrop = before_remdrop - len(df) if dynamic else org_rows - len(df)
+        logger.info(f'Dropped {remdrop} remaining rows')
         if df.empty:
             logger.warning('Dataframe is empty after dropping remaining rows containing NaNs')
             return pd.DataFrame()
