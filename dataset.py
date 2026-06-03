@@ -2,8 +2,10 @@ from data.schema import WranglingSchema
 from data.wrangling import build_dataset
 from fred.schema import FredSchema
 from fred.database import FredDatabase
+from fred.database import VALID_FREQUENCIES
 from utils.validation import validate_json
-from typing import List
+from typing import List, Annotated, Literal
+from pydantic import BaseModel, Field, ValidationError, field_validator
 from pathlib import Path
 import logging
 from time import sleep
@@ -12,28 +14,37 @@ from time import sleep
 logger = logging.getLogger(__name__)
 
 
-def main(
-    series_ids: List[str], 
-    frequency: str='q', 
-    target_path: str='dataset.csv', 
-    replace: bool=False
-) -> None:
+SERIES_IDS = [
+    'GDPC1',
+    'RSXFS',
+    'INDPRO',
+    'PCEPILFE'
+]
 
-    if not isinstance(series_ids, list):
-        logger.error('Series-IDs must be in a list')
+
+class MainArgs(BaseModel):
+    series_ids: Annotated[
+        set[Annotated[str, Field(pattern='^[A-Z0-9]+$', min_length=1)]], 
+        Field(min_length=1, description='List of FRED Series-IDs')
+    ]
+    frequency: Literal[tuple(VALID_FREQUENCIES)]
+    target_path: Path
+    
+    @field_validator('target_path')
+    def validate_filetype(path: Path) -> Path:
+        if path.suffix.lower() != '.csv':
+            raise ValueError('Invalid target-path. Must end with ".csv"')
+        return path
+    
+    
+def main(series_ids: List[str]=SERIES_IDS, frequency: str='q', target_path: str='dataset.csv') -> None:
+
+    try:
+        MainArgs(series_ids=series_ids, frequency=frequency, target_path=target_path)
+    except ValidationError as e:
+        logger.error(e)
         return
     
-    if target_path.split('.')[1] != 'csv':
-        logger.error(f'Invalid target-path type. Must be csv')
-        return
-    
-    target_path = Path(target_path)
-    if target_path.exists() and target_path.is_file():
-        logger.warning(f'{target_path} already exists.')
-        if not replace:
-            logger.info('Aborted building dataframe')
-            return
-        
     db_configs = validate_json('fred/configs.json', FredSchema)
     df_configs = validate_json('data/configs.json', WranglingSchema)
     
@@ -68,10 +79,4 @@ if __name__ == '__main__':
         format='%(asctime)s – %(levelname)s – %(message)s',
         filename='fred/database.py'
     )
-    series_ids = [
-        "GDPC1",
-        "PCEPILFE",
-        "RSXFS",
-        "INDPRO"
-    ]
-    main(series_ids)
+    main()
