@@ -41,12 +41,7 @@ def main(series_ids: List[str]=COMMON_SERIES_IDS, frequency: str='q') -> None:
 
 if __name__ == '__main__':
     logging.basicConfig(
-        level=logging.ERROR,
-        format='%(asctime)s – %(levelname)s – %(message)s'
-    )
-    logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s – %(levelname)s – %(message)s',
-        filename='fred/database.py'
+        format='%(asctime)s – %(levelname)s – %(message)s'
     )
     main()
