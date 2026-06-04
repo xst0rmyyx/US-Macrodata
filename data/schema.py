@@ -61,7 +61,7 @@ class WranglingSchema(BaseModel):
     
     @field_validator('startdate', 'enddate')
     @classmethod
-    def validate_dateformat(cls, value: str) -> str:
+    def validate_dateformat(cls, value: str) -> Optional[str]:
         pattern = r'^\d{4}-\d{2}-\d{2}$'
         if value == 'null':
             return None
