@@ -25,7 +25,7 @@ SERIES_IDS = [
 class MainArgs(BaseModel):
     series_ids: Annotated[
         set[Annotated[str, Field(pattern='^[A-Z0-9]+$', min_length=1)]], 
-        Field(min_length=1, description='List of FRED Series-IDs')
+        Field(min_length=2, description='List of FRED Series-IDs')
     ]
     frequency: Literal[tuple(VALID_FREQUENCIES)]
     target_path: Path
