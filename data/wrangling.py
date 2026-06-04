@@ -1,12 +1,15 @@
 import pandas as pd
 import logging
 from typing import List, Dict, Union, Optional
+from datetime import datetime
 
 
 logger = logging.getLogger(__name__)
 
 
 DEFAULT_CONFIGS = {
+    'startdate': None,
+    'enddate': None,
     'resample_period': None,
     'row_threshold': 0.35,
     'col_threshold': 0.25,
@@ -39,7 +42,24 @@ def build_dataset(
         except Exception:
             logger.exception('Failed to standardize dataframe observations')
             return pd.DataFrame()
+            
+    startdate = pd.to_datetime(configs['startdate'])
+    enddate = pd.to_datetime(configs['enddate'])
     
+    # Filters datetime-range
+    if startdate is not None or enddate is not None:
+        try:
+            if startdate is None:
+                df = df.loc[df.index <= enddate]
+            elif enddate is None:
+                df = df.loc[df.index >= startdate]
+            else:
+                df = df.loc[(df.index >= startdate) & (df.index <= enddate)]
+            logger.info('Successfully filtered datetime-range')
+            
+        except Exception as e:
+            logger.warning(f'Could not filter datetime-range: {e}')
+            
     org_rows = len(df)
     
     # Vertical NaN-Handling

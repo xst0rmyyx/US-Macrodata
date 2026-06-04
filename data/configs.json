@@ -1,6 +1,8 @@
 {
+    "startdate": "2000-01-01",
+    "enddate": "null",
     "resample_period": "Q",
-    "row_threshold": 0.30,
+    "row_threshold": 0.25,
     "col_threshold": 0.15,
     "interpolate_fill": [
         "PAYEMS",
@@ -10,7 +12,8 @@
         "PCEPILFE",
         "GDPC1",
         "RSXFS",
-        "WALCL"
+        "WALCL",
+        "GDP"
     ],
     "mean_fill": [
         "UNRATE",
@@ -18,6 +21,8 @@
         "JTSJOL",
         "INDPRO",
         "FEDFUNDS",
-        "T10Y2Y"
+        "T10Y2Y",
+        "T10YIE",
+        "DGS10"
     ]
 }
