@@ -14,7 +14,7 @@ from time import sleep
 logger = logging.getLogger(__name__)
 
 
-SERIES_IDS = [
+DEFAULT_SERIES_IDS = [
     'GDPC1',
     'RSXFS',
     'INDPRO',
@@ -37,7 +37,7 @@ class MainArgs(BaseModel):
         return path
     
     
-def main(series_ids: List[str]=SERIES_IDS, frequency: str='q', target_path: str='dataset.csv') -> None:
+def main(series_ids: List[str]=DEFAULT_SERIES_IDS, frequency: str='q', target_path: str='dataset.csv') -> None:
 
     try:
         MainArgs(series_ids=series_ids, frequency=frequency, target_path=target_path)
@@ -64,19 +64,14 @@ def main(series_ids: List[str]=SERIES_IDS, frequency: str='q', target_path: str=
     if not data:
         return
         
-    df = build_dataset(data, df_configs, dynamic=True, drop_rem=False)
+    df = build_dataset(data, df_configs, dynamic=True, drop_rem=True)
     if not df.empty:
         df.to_csv(target_path)
         
     
 if __name__ == '__main__':
     logging.basicConfig(
-        level=logging.ERROR,
-        format='%(asctime)s – %(levelname)s – %(message)s',
-    )
-    logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s – %(levelname)s – %(message)s',
-        filename='data/wrangling.py'
     )
     main()
