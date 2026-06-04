@@ -40,7 +40,7 @@ Economic-Data/
 - pandas
 - pydantic
 - sqlite3 *(part of Python’s standard library)*
-- pathlib, json, typing, time *(part of Python’s standard library)*
+- pathlib, json, typing, time, re *(part of Python’s standard library)*
 
 Install the third-party dependencies with:
 
@@ -72,6 +72,8 @@ The file `data/configs.json` controls how raw data is cleaned and transformed wh
 
 ```json
 {
+    "startdate": "2000-01-01",
+    "enddate": "null",
     "resample_period": "Q",
     "row_threshold": 0.30,
     "col_threshold": 0.20,
