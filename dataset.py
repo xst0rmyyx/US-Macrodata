@@ -15,10 +15,10 @@ logger = logging.getLogger(__name__)
 
 
 DEFAULT_SERIES_IDS = [
-    'GDPC1',
+    'CPIAUCSL',
     'RSXFS',
     'INDPRO',
-    'PCEPILFE'
+    'GDP'
 ]
 
 
@@ -31,7 +31,8 @@ class MainArgs(BaseModel):
     target_path: Path
     
     @field_validator('target_path')
-    def validate_filetype(path: Path) -> Path:
+    @classmethod
+    def validate_filetype(cls, path: Path) -> Path:
         if path.suffix.lower() != '.csv':
             raise ValueError('Invalid target-path. Must end with ".csv"')
         return path
