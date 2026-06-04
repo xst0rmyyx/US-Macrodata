@@ -40,7 +40,7 @@ Economic-Data/
 - pandas
 - pydantic
 - sqlite3 *(part of Python’s standard library)*
-- pathlib, json, typing, time, re *(part of Python’s standard library)*
+- logging, pathlib, json, typing, time, re *(part of Python’s standard library)*
 
 Install the third-party dependencies with:
 
