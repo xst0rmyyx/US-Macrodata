@@ -1,7 +1,7 @@
 {
-    "startdate": "1990-01-01",
+    "startdate": "2000-01-01",
     "enddate": "null",
-    "resample_period": "Q",
+    "resample_period": "M",
     "row_threshold": 0.25,
     "col_threshold": 0.15,
     "interpolate_fill": [
