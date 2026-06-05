@@ -16,9 +16,11 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_SERIES_IDS = [
     'CPIAUCSL',
+    'ACOGNO',
     'RSXFS',
-    'INDPRO',
-    'GDP'
+    'PPIACO',
+    'AMTMNO',
+    'INDPRO'
 ]
 
 
@@ -38,7 +40,7 @@ class MainArgs(BaseModel):
         return path
     
     
-def main(series_ids: List[str]=DEFAULT_SERIES_IDS, frequency: str='q', target_path: str='dataset.csv') -> None:
+def main(series_ids: List[str]=DEFAULT_SERIES_IDS, frequency: str='m', target_path: str='dataset.csv') -> None:
 
     try:
         MainArgs(series_ids=series_ids, frequency=frequency, target_path=target_path)
